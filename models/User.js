@@ -1,5 +1,6 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connection");
+const bcrypt = require("bcrypt");
 
 // create our User model
 class User extends Model {}
@@ -37,13 +38,21 @@ User.init(
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-            // this means the pass must be atleast 4 characters long
+            // this means the pass must be at least 4 characters long
             len: [4]
         }
     }
   },
 
   {
+    hooks: {
+        // set up BeforeCreate lifecycle 'hook' functionality
+        async beforeCreate(newUserData) {
+            newUserData.password = await bcrypt.hash(newUserData.password, 10);
+            return newUserData
+        }
+    },
+
     sequelize,
     timestamps: false,
     freezeTableName: true,
