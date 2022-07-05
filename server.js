@@ -1,4 +1,5 @@
 const express = require("express");
+const nodemon = require("nodemon");
 const routes = require("./routes");
 const sequelize = require("./config/connection");
 
