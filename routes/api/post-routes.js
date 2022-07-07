@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { Post, User } = require('../../models');
 
-//  GET all users
+//  GET all posts
 router.get('/', (req, res) => {
     console.log('========================');
     Post.findAll({
@@ -21,6 +21,7 @@ router.get('/', (req, res) => {
     });
 });
 
+// GET one specific post 
 router.get("/:id", (req, res) => {
     Post.findOne({
         where: {
@@ -42,8 +43,23 @@ router.get("/:id", (req, res) => {
 
         res.json(dbPostData);
         })
-        
+
         .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+    });
+});
+
+// CREATE a post
+router.post("/", (req, res) => {
+  // expects {title: 'Taskmaster goes public!', post_url: 'https://taskmaster.com/press', user_id: 1}
+    Post.create({
+        title: req.body.title,
+        post_url: req.body.post_url,
+        user_id: req.body.user_id,
+    })
+    .then((dbPostData) => res.json(dbPostData))
+    .catch((err) => {
         console.log(err);
         res.status(500).json(err);
     });
