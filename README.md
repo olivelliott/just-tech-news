@@ -18,4 +18,4 @@ Configure Heroku for deployment of an application using Sequelize & MySQL.
 
 Use the bcrypt package to hash password information and use environment variables to protect sensitive data.
 
-![Heroku Site Link](https://lit-depths-29885.herokuapp.com/)
+![Heroku Site Link](https://lit-depths-29885.herokuapp.com/api/users)
